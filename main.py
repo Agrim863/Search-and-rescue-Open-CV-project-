@@ -28,16 +28,16 @@ upper_land = np.array([65, 230, 153])
 lower_ocean = np.array([100, 153, 89])
 upper_ocean = np.array([115, 204, 115])
 
-# ================== Colors for Drawing ==================
+# ================== Colors for Display ====================
 outline_color = (0,0,0)        # Black outline
 land_display = (19, 69, 139)   # Brown
 ocean_display = (139,0,0)      # Deep Blue
 score_color = (255,0,255)      # Magenta for total score
 
-# ================== Collect Rescue Ratios ==================
+
 rescue_ratios = []
 
-# ================== Process Each Image ==================
+# ================== Process Each Image ===================
 images = sorted(os.listdir(input_folder))
 for img_name in images:
     if not img_name.lower().endswith((".png", ".jpg", ".jpeg")):
@@ -93,7 +93,7 @@ for img_name in images:
                 color = col
                 break
 
-        if shape=="circle":  # Rescue pad
+        if shape=="circle": 
             pads.append({"cx":cx, "cy":cy, "color":color, "capacity":rescuepad_capacity.get(color,0), "assigned":0})
         else:  # Casualty
             priority = casualty_priority.get(shape,0)
@@ -136,7 +136,7 @@ for img_name in images:
     cv.imwrite(os.path.join(output1_folder, img_name), display_img)
     cv.imwrite(os.path.join(output2_folder, img_name), final_img)
 
-    # ================== Compute Rescue Ratio ==================
+    # ================== Rescue Ratio ==================
     if len(casualties) > 0:
         rescue_ratio = sum_best_scores / len(casualties)
     else:
@@ -175,3 +175,4 @@ for f in os.listdir(output1_folder):
     os.remove(os.path.join(output1_folder, f))
 for f in os.listdir(output2_folder):
     os.remove(os.path.join(output2_folder, f))
+
